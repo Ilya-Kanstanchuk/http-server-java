@@ -21,11 +21,16 @@ public class ClientHandler implements Runnable{
         this.socket = socket;
     }
 
+    /**
+     * Method listening to clients requests and pass them to {@code mapToRequestDTO()} method
+     *
+     * @throws java.io.IOException
+     */
     @Override
     public void run() {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
-            System.out.println(parser.mapToRequestDTO(reader));
+            parser.mapToRequestDTO(reader);
         }catch (Exception e){
             LOG.log(Level.WARNING, "Failed to process message to server ",  e);
         }

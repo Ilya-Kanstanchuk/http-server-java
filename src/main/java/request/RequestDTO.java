@@ -47,14 +47,4 @@ public class RequestDTO {
         return body;
     }
 
-    @Override
-    public String toString() {
-        return "RequestDTO{" +
-                "method='" + method + '\'' +
-                ", route='" + route + '\'' +
-                ", httpType='" + httpType + '\'' +
-                ", host='" + host + '\'' +
-                ", body='" + body + '\'' +
-                '}';
-    }
 }

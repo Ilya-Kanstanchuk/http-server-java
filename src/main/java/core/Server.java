@@ -15,6 +15,13 @@ public class Server {
     private final ServerSocketProvider provider = new ServerSocketProvider();
     private ServerSocket serverSocket;
 
+    /**
+     * Starts the server, listens for incoming client connections,
+     * and creates a {@link  ClientHandler} for each connected client.
+     *
+     * @throws ServerAddressException
+     */
+
     public void start(){
         try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             serverSocket = provider.createServerSocket();

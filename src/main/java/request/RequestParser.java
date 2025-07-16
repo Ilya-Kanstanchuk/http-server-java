@@ -3,6 +3,14 @@ package request;
 import java.io.BufferedReader;
 
 public class RequestParser {
+
+    /**
+     * Method take {@link BufferedReader} object as a parameter, read line by line,
+     * extracting information and return generated  {@link RequestDTO} object
+     * @param reader
+     * @return {@link RequestDTO}
+     * @throws Exception
+     */
     public RequestDTO mapToRequestDTO(BufferedReader reader) throws Exception{
         String line;
         int contentLength = 0;
