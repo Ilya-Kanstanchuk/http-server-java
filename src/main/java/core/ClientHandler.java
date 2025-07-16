@@ -25,6 +25,7 @@ public class ClientHandler implements Runnable{
             String message;
             while ((message = reader.readLine()) != null){
                 System.out.println(message);
+                if ()
             }
         }catch (Exception e){
             LOG.log(Level.WARNING, "Failed to process message to server ",  e);
