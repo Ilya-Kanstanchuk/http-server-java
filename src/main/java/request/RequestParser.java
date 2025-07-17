@@ -1,9 +1,10 @@
 package request;
 
+import response.ResponseGenerator;
+
 import java.io.BufferedReader;
 
 public class RequestParser {
-
     /**
      * Method take {@link BufferedReader} object as a parameter, read line by line,
      * extracting information and return generated  {@link RequestDTO} object
@@ -11,7 +12,7 @@ public class RequestParser {
      * @return {@link RequestDTO}
      * @throws Exception
      */
-    public RequestDTO mapToRequestDTO(BufferedReader reader) throws Exception{
+    private RequestDTO mapToRequestDTO(BufferedReader reader) throws Exception{
         String line;
         int contentLength = 0;
         RequestDTO req = new RequestDTO();
@@ -40,5 +41,11 @@ public class RequestParser {
             req.setBody(new String(chars));
         }
         return req;
+    }
+
+    public String parseByHost(BufferedReader reader) throws Exception{
+        RequestDTO req = mapToRequestDTO(reader);
+        ResponseGenerator generator = RouteHandlers.routes.get(req.getHost()).get(req.getMethod()).get(req.getRoute());
+        return generator.generate();
     }
 }
