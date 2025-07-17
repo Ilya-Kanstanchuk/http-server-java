@@ -45,17 +45,35 @@ public class RequestParser {
         return req;
     }
 
+    /**
+     * Method parse {@link RequestDTO} object, handle invalid data using {@link RequestValidator} class
+     * and then find appropriate {@link ResponseGenerator} implementation in list provided by
+     * {@link RouteHandlers}
+     * @param reader
+     * @return {@link String}
+     * @throws NullPointerException
+     */
+
     public String parseByHost(BufferedReader reader) throws Exception{
         try {
             RequestDTO req = mapToRequestDTO(reader);
             ResponseGenerator generator;
             if (!RequestValidator.isRequestFull(req)){
-                generator = new GeneralErrorResponseProvider("Bad Request", "Request is wrong formatted", 400, "Bad Request");
+                generator = new GeneralErrorResponseProvider("400 Bad Request", "Request is wrong formatted", 400, "Bad Request");
+            }else if (!RequestValidator.isHostExists(req.getHost()))
+            {
+                generator = new GeneralErrorResponseProvider("400 Bad Request", "Host doesn't exists", 400, "Bad Request");
+            }else if(!RequestValidator.isMethodValid(req.getMethod())){
+                generator = new GeneralErrorResponseProvider("403 Forbidden", "Invalid request HTTP method", 403, "Forbidden");
+            }else{
+                generator = RouteHandlers.routes.get(req.getHost()).get(req.getMethod()).get(req.getRoute());
             }
-            generator = RouteHandlers.routes.get(req.getHost()).get(req.getMethod()).get(req.getRoute());
+            if (generator == null){
+                generator = new GeneralErrorResponseProvider( "404 Not found", "Route was not found", 404, "Not Found");
+            }
             return generator.generate();
         }catch (Exception e){
-            return new GeneralErrorResponseProvider("Internal Server Error", "Server throws an error", 500, "Internal Server Error").generate();
+            return new GeneralErrorResponseProvider("500 Internal Server Error", "Server throws an error", 500, "Internal Server Error").generate();
         }
     }
 }

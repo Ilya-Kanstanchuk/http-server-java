@@ -12,4 +12,20 @@ public class RequestValidator {
         }
         return true;
     }
+    public static Boolean isHostExists(String host){
+        String port = System.getenv("PORT_NUMBER");
+        String host_1 = System.getenv("HOST1_NAME") + ":" + port;
+        String host_2 = System.getenv("HOST2_NAME") + ":" + port;
+        if (host.equals(host_1) || host.equals(host_2)){
+            return true;
+        }
+        return false;
+    }
+
+    public static Boolean isMethodValid(String method){
+        if (method.equals("GET") || method.equals("POST")){
+            return true;
+        }
+        return false;
+    }
 }
