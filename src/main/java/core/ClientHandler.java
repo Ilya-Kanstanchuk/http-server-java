@@ -30,7 +30,8 @@ public class ClientHandler implements Runnable{
     public void run() {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
-            parser.parseByHost(reader);
+            String response = parser.parseByHost(reader);
+            writer.write(response);
         }catch (Exception e){
             LOG.log(Level.WARNING, "Failed to process message to server ",  e);
         }
