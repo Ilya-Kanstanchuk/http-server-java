@@ -4,6 +4,7 @@ import response.GeneralResponseGenerator;
 import response.ResponseGenerator;
 
 public class GetHomeRouteResponseGenerator implements ResponseGenerator {
+
     private final String body = """
             <!DOCTYPE html>
             <html>

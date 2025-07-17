@@ -1,14 +1,12 @@
 package core;
 
-import exception.ServerMessageException;
 import request.RequestParser;
+import response.ResponseGenerator;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +14,7 @@ public class ClientHandler implements Runnable{
     private final static Logger LOG = Logger.getLogger(ClientHandler.class.getName());
     private final RequestParser parser = new RequestParser();
     private Socket socket;
+    private ResponseGenerator responseGenerator;
 
     public ClientHandler(Socket socket) {
         this.socket = socket;

@@ -1,6 +1,8 @@
 package request;
 
 import response.ResponseGenerator;
+import response.errors.GeneralErrorResponseProvider;
+import utils.RequestValidator;
 
 import java.io.BufferedReader;
 
@@ -44,8 +46,16 @@ public class RequestParser {
     }
 
     public String parseByHost(BufferedReader reader) throws Exception{
-        RequestDTO req = mapToRequestDTO(reader);
-        ResponseGenerator generator = RouteHandlers.routes.get(req.getHost()).get(req.getMethod()).get(req.getRoute());
-        return generator.generate();
+        try {
+            RequestDTO req = mapToRequestDTO(reader);
+            ResponseGenerator generator;
+            if (!RequestValidator.isRequestFull(req)){
+                generator = new GeneralErrorResponseProvider("Bad Request", "Request is wrong formatted", 400, "Bad Request");
+            }
+            generator = RouteHandlers.routes.get(req.getHost()).get(req.getMethod()).get(req.getRoute());
+            return generator.generate();
+        }catch (Exception e){
+            return new GeneralErrorResponseProvider("Internal Server Error", "Server throws an error", 500, "Internal Server Error").generate();
+        }
     }
 }
