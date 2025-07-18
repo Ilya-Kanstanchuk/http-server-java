@@ -1,5 +1,6 @@
 package response.host1.get;
 
+import request.RequestDTO;
 import response.GeneralResponseGenerator;
 import response.ResponseGenerator;
 
@@ -18,7 +19,7 @@ public class GetHomeRouteResponseGenerator implements ResponseGenerator {
             </html>
             """;
     @Override
-    public String generate() {
+    public String generate(RequestDTO req) {
         return GeneralResponseGenerator.generateResponse(200, "OK", "text/html", "HttpJava/1.0", body.length(), body);
     }
 }

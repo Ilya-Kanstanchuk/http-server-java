@@ -1,5 +1,6 @@
 package response.errors;
 
+import request.RequestDTO;
 import response.GeneralResponseGenerator;
 import response.ResponseGenerator;
 
@@ -18,7 +19,7 @@ public class GeneralErrorResponseProvider implements ResponseGenerator {
     }
 
     @Override
-    public String generate() {
+    public String generate(RequestDTO req) {
         String body = """
             {
                 "error": "%s",

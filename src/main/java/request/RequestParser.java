@@ -71,9 +71,9 @@ public class RequestParser {
             if (generator == null){
                 generator = new GeneralErrorResponseProvider( "404 Not found", "Route was not found", 404, "Not Found");
             }
-            return generator.generate();
+            return generator.generate(req);
         }catch (Exception e){
-            return new GeneralErrorResponseProvider("500 Internal Server Error", "Server throws an error", 500, "Internal Server Error").generate();
+            return new GeneralErrorResponseProvider("500 Internal Server Error", "Server throws an error", 500, "Internal Server Error").generate(null);
         }
     }
 }

@@ -2,6 +2,7 @@ package request;
 
 import response.ResponseGenerator;
 import response.host1.get.GetHomeRouteResponseGenerator;
+import response.host1.post.PostUserRouteResponseGenerator;
 
 import java.util.HashMap;
 
@@ -16,5 +17,7 @@ public class RouteHandlers {
         routes.putIfAbsent(fullHost1, new HashMap<>());
         routes.get(fullHost1).putIfAbsent("GET", new HashMap<>());
         routes.get(fullHost1).get("GET").putIfAbsent("/", new GetHomeRouteResponseGenerator());
+        routes.get(fullHost1).putIfAbsent("POST", new HashMap<>());
+        routes.get(fullHost1).get("POST").putIfAbsent("/user", new PostUserRouteResponseGenerator());
     }
 }
