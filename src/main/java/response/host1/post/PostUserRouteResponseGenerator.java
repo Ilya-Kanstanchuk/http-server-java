@@ -22,7 +22,7 @@ public class PostUserRouteResponseGenerator implements ResponseGenerator {
         try {
             UserDTO user = PostUserUtils.parseBodyToUserDTO(req.getBody());
             PostUserUtils.writeUserInfo(user);
-            return GeneralResponseGenerator.generateResponse(200, "OK", "text/html", "HttpJava/1.0", body.length(), body);
+            return GeneralResponseGenerator.generateResponse(200, "OK", "application/json", "HttpJava/1.0", body.length(), body);
         }catch (Exception e){
             log.log(Level.WARNING, "Failed to write user to file", e);
             return new GeneralErrorResponseProvider("400 Bad Request", "Request is wrong formatted", 400, "Bad Request").generate(null);
